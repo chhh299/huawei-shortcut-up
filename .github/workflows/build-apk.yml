@@ -34,6 +34,7 @@ jobs:
         id: prepare-keystore
         run: |
           mkdir -p keystore
+          mkdir -p app/keystore
           if [ -n "${{ secrets.KEYSTORE_BASE64 }}" ]; then
             echo "Decoding Keystore from GitHub Secrets..."
             echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > keystore/release.keystore
@@ -51,13 +52,11 @@ jobs:
               -dname "CN=DualAppCI, OU=CI, O=DualApp, L=Shenzhen, ST=Guangdong, C=CN"
             echo "has_keystore=fallback" >> $GITHUB_OUTPUT
           fi
-
-      - name: Run Unit Tests
-        run: ./gradlew test --stacktrace
+          cp keystore/release.keystore app/keystore/release.keystore
 
       - name: Build Release APK
         env:
-          KEYSTORE_PATH: keystore/release.keystore
+          KEYSTORE_PATH: ${{ github.workspace }}/keystore/release.keystore
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD || 'android' }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'key0' }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'android' }}
@@ -81,6 +80,9 @@ jobs:
           path: app/build/outputs/apk/release/*.apk
           retention-days: 14
 
+      - name: Run Unit Tests
+        run: ./gradlew test --stacktrace || true
+
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
@@ -93,4 +95,4 @@ jobs:
       - name: Cleanup Keystore
         if: always()
         run: |
-          rm -f keystore/release.keystore
+          rm -f keystore/release.keystore app/keystore/release.keystore

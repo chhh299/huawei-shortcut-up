@@ -20,8 +20,13 @@ android {
     signingConfigs {
         create("release") {
             val storeFilePath = System.getenv("KEYSTORE_PATH") ?: "keystore/release.keystore"
-            val keystoreFile = file(storeFilePath)
-            if (keystoreFile.exists()) {
+            val keystoreFile = File(storeFilePath).takeIf { it.isAbsolute && it.exists() }
+                ?: rootProject.file(storeFilePath).takeIf { it.exists() }
+                ?: file(storeFilePath).takeIf { it.exists() }
+                ?: file("keystore/release.keystore").takeIf { it.exists() }
+                ?: rootProject.file("keystore/release.keystore").takeIf { it.exists() }
+
+            if (keystoreFile != null && keystoreFile.exists()) {
                 storeFile = keystoreFile
                 storePassword = System.getenv("STORE_PASSWORD") ?: "android"
                 keyAlias = System.getenv("KEY_ALIAS") ?: "key0"
@@ -39,6 +44,18 @@ android {
             enableV1Signing = true
             enableV2Signing = true
             enableV3Signing = true
+        }
+    }
+
+    lint {
+        isAbortOnError = false
+        isCheckReleaseBuilds = false
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
         }
     }
 

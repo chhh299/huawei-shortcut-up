@@ -41,14 +41,14 @@ class DispatchLogicTest {
             label = "Target 1",
             packageName = "com.example.one",
             className = null,
-            intentUri = "#Intent;action=android.intent.action.VIEW;package=com.example.one;end",
+            intentUri = "intent:#Intent;action=android.intent.action.VIEW;package=com.example.one;end",
             type = TargetType.APPLICATION
         )
         val target2 = LaunchTarget(
             label = "Target 2",
             packageName = "com.example.two",
             className = null,
-            intentUri = "#Intent;action=android.intent.action.VIEW;package=com.example.two;end",
+            intentUri = "intent:#Intent;action=android.intent.action.VIEW;package=com.example.two;end",
             type = TargetType.SHORTCUT
         )
         val profile = LaunchProfile(target1, target2, delayMs = 300)
@@ -91,14 +91,14 @@ class DispatchLogicTest {
             label = "Missing App",
             packageName = "com.example.missing",
             className = null,
-            intentUri = "#Intent;action=android.intent.action.VIEW;package=com.example.missing;end",
+            intentUri = "intent:#Intent;action=android.intent.action.VIEW;package=com.example.missing;end",
             type = TargetType.APPLICATION
         )
         val target2 = LaunchTarget(
             label = "Target 2",
             packageName = "com.example.two",
             className = null,
-            intentUri = "#Intent;action=android.intent.action.VIEW;package=com.example.two;end",
+            intentUri = "intent:#Intent;action=android.intent.action.VIEW;package=com.example.two;end",
             type = TargetType.SHORTCUT
         )
         val profile = LaunchProfile(target1, target2, delayMs = 200)

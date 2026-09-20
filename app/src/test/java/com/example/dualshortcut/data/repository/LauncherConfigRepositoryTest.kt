@@ -49,7 +49,7 @@ class LauncherConfigRepositoryTest {
             label = "Camera Tool",
             packageName = "com.example.camera",
             className = "com.example.camera.CaptureActivity",
-            intentUri = "#Intent;action=android.intent.action.MAIN;package=com.example.camera;end",
+            intentUri = "intent:#Intent;action=android.intent.action.MAIN;package=com.example.camera;end",
             type = TargetType.APPLICATION
         )
 
@@ -69,14 +69,14 @@ class LauncherConfigRepositoryTest {
             label = "App 1",
             packageName = "com.example.app1",
             className = null,
-            intentUri = "#Intent;action=android.intent.action.MAIN;package=com.example.app1;end",
+            intentUri = "intent:#Intent;action=android.intent.action.MAIN;package=com.example.app1;end",
             type = TargetType.APPLICATION
         )
         val target2 = LaunchTarget(
             label = "Shortcut 2",
             packageName = "com.example.app2",
             className = null,
-            intentUri = "#Intent;action=android.intent.action.VIEW;package=com.example.app2;end",
+            intentUri = "intent:#Intent;action=android.intent.action.VIEW;package=com.example.app2;end",
             type = TargetType.SHORTCUT
         )
 
@@ -103,7 +103,7 @@ class LauncherConfigRepositoryTest {
             label = "App 1",
             packageName = "com.example.app1",
             className = null,
-            intentUri = "#Intent;action=android.intent.action.MAIN;package=com.example.app1;end",
+            intentUri = "intent:#Intent;action=android.intent.action.MAIN;package=com.example.app1;end",
             type = TargetType.APPLICATION
         )
         repository.saveSlot1(target1)
