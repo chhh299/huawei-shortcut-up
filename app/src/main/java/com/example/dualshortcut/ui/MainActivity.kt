@@ -1,5 +1,6 @@
 package com.example.dualshortcut.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     // 接收第三方快捷方式选择回调
     private val shortcutResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK && result.data != null) {
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
                 val target = ShortcutPickerHelper.extractShortcutResult(result.data)
                 if (target != null) {
                     if (targetSelectingSlot == 1) {
