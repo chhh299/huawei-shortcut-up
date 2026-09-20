@@ -1,0 +1,244 @@
+{
+  "schema_version": 6,
+  "change_name": "dual-app-shortcut-launcher",
+  "title": "实现双App快捷启动器（华为桌面快捷方式与签名适配）",
+  "caller": "",
+  "created_at": "2026-09-20T01:39:27.617Z",
+  "updated_at": "2026-09-20T02:35:52.058Z",
+  "acceptance_criteria": [
+    "透明中转DispatchActivity先后快速唤起",
+    "外部应用快捷方式识别与持久化",
+    "华为鸿蒙桌面快捷方式与权限适配",
+    "MainActivity配置主界面",
+    "V1+V2+V3签名与GitHub_Actions自动构建"
+  ],
+  "current_phase": "archive",
+  "pipeline": {
+    "intake": {
+      "status": "done",
+      "rd_skill": null,
+      "first_pass": true,
+      "rework_reasons": [],
+      "artifact_paths": [],
+      "started_at": "2026-09-20T01:39:53.814Z",
+      "last_resumed_at": "2026-09-20T01:39:53.814Z",
+      "exit_status": "DONE",
+      "summary": "intake validation passed",
+      "completed_at": "2026-09-20T01:40:04.786Z"
+    },
+    "explore": {
+      "status": "done",
+      "rd_skill": "/rd:explore",
+      "first_pass": true,
+      "rework_reasons": [],
+      "artifact_paths": [],
+      "started_at": "2026-09-20T01:40:04.786Z",
+      "last_resumed_at": "2026-09-20T01:40:04.786Z",
+      "dispatch_history": [
+        {
+          "started_at": "2026-09-20T01:40:26.893Z",
+          "completed_at": "2026-09-20T01:41:56.693Z",
+          "token_usage": null,
+          "exit_status": null,
+          "context_mode": "full"
+        }
+      ],
+      "dispatch_started_at": "2026-09-20T01:40:26.893Z",
+      "dispatch_completed_at": "2026-09-20T01:41:56.693Z",
+      "exit_status": "DONE",
+      "summary": "完成系统架构设计与技术探索，明确了透明DispatchActivity调度方案、外部快捷方式提取持久化、华为鸿蒙桌面适配引导及签名流水线规范",
+      "completed_at": "2026-09-20T01:42:06.452Z"
+    },
+    "propose": {
+      "status": "done",
+      "rd_skill": "/rd:propose",
+      "first_pass": true,
+      "rework_reasons": [],
+      "artifact_paths": [],
+      "started_at": "2026-09-20T01:42:06.454Z",
+      "last_resumed_at": "2026-09-20T01:42:06.454Z",
+      "dispatch_history": [
+        {
+          "started_at": "2026-09-20T01:42:32.479Z",
+          "completed_at": "2026-09-20T01:56:28.653Z",
+          "token_usage": null,
+          "exit_status": null,
+          "context_mode": "full"
+        }
+      ],
+      "dispatch_started_at": "2026-09-20T01:42:32.479Z",
+      "dispatch_completed_at": "2026-09-20T01:56:28.653Z",
+      "exit_status": "DONE",
+      "summary": "完成全部核心制品（proposal.md、design.md、tasks.md 及 5 个能力 specs），通过 rd validate 校验",
+      "completed_at": "2026-09-20T01:56:36.250Z"
+    },
+    "design-review": {
+      "status": "pending",
+      "rd_skill": null,
+      "first_pass": null,
+      "rework_reasons": [],
+      "artifact_paths": []
+    },
+    "implement": {
+      "status": "done",
+      "rd_skill": "/rd:apply",
+      "first_pass": true,
+      "rework_reasons": [],
+      "artifact_paths": [],
+      "started_at": "2026-09-20T01:56:36.250Z",
+      "last_resumed_at": "2026-09-20T01:56:36.250Z",
+      "dispatch_history": [
+        {
+          "started_at": "2026-09-20T01:56:50.977Z",
+          "completed_at": "2026-09-20T02:15:12.310Z",
+          "token_usage": null,
+          "exit_status": null,
+          "context_mode": "full"
+        }
+      ],
+      "dispatch_started_at": "2026-09-20T01:56:50.977Z",
+      "dispatch_completed_at": "2026-09-20T02:15:12.310Z",
+      "exit_status": "DONE",
+      "summary": "完成全部23项任务，构建完整Android Gradle工程架构、透明DispatchActivity调度引擎、ACTION_CREATE_SHORTCUT识别与Intent序列化持久化、华为桌面适配与权限引导、Material 3配置界面、V1+V2+V3全版本签名与GitHub Actions流水线",
+      "completed_at": "2026-09-20T02:15:20.737Z"
+    },
+    "test": {
+      "status": "done",
+      "rd_skill": null,
+      "first_pass": true,
+      "rework_reasons": [],
+      "artifact_paths": [],
+      "started_at": "2026-09-20T02:15:20.738Z",
+      "last_resumed_at": "2026-09-20T02:15:20.738Z",
+      "dispatch_history": [
+        {
+          "started_at": "2026-09-20T02:18:09.283Z",
+          "completed_at": "2026-09-20T02:24:43.642Z",
+          "token_usage": null,
+          "exit_status": null,
+          "context_mode": "full"
+        }
+      ],
+      "dispatch_started_at": "2026-09-20T02:18:09.283Z",
+      "dispatch_completed_at": "2026-09-20T02:24:43.642Z",
+      "exit_status": "DONE",
+      "summary": "5项核心验收标准全部通过验证，工程完整性与配置校验44项全项PASS，仿真逻辑测试17项全项PASS",
+      "completed_at": "2026-09-20T02:24:50.458Z"
+    },
+    "code-review": {
+      "status": "done",
+      "rd_skill": null,
+      "first_pass": true,
+      "rework_reasons": [],
+      "artifact_paths": [],
+      "started_at": "2026-09-20T02:24:50.460Z",
+      "last_resumed_at": "2026-09-20T02:24:50.460Z",
+      "dispatch_history": [
+        {
+          "started_at": "2026-09-20T02:25:01.964Z",
+          "completed_at": "2026-09-20T02:27:48.948Z",
+          "token_usage": null,
+          "exit_status": null,
+          "context_mode": "full"
+        }
+      ],
+      "dispatch_started_at": "2026-09-20T02:25:01.964Z",
+      "dispatch_completed_at": "2026-09-20T02:27:48.948Z",
+      "exit_status": "DONE",
+      "summary": "代码质量优异，无P0/P1问题，评分96分，建议直接通过",
+      "completed_at": "2026-09-20T02:27:56.387Z"
+    },
+    "debate": {
+      "status": "pending",
+      "rd_skill": null,
+      "first_pass": null,
+      "rework_reasons": [],
+      "artifact_paths": []
+    },
+    "archive": {
+      "status": "done",
+      "rd_skill": "/rd:archive",
+      "first_pass": null,
+      "rework_reasons": [],
+      "artifact_paths": [],
+      "started_at": "2026-09-20T02:27:56.389Z",
+      "last_resumed_at": "2026-09-20T02:27:56.389Z",
+      "dispatch_history": [
+        {
+          "started_at": "2026-09-20T02:28:06.345Z",
+          "completed_at": "2026-09-20T02:35:43.913Z",
+          "token_usage": null,
+          "exit_status": null,
+          "context_mode": "full"
+        }
+      ],
+      "dispatch_started_at": "2026-09-20T02:28:06.345Z",
+      "dispatch_completed_at": "2026-09-20T02:35:43.913Z",
+      "exit_status": "DONE",
+      "summary": "变更归档完成，主干规范基线已同步，变更目录已归档",
+      "completed_at": "2026-09-20T02:35:52.057Z"
+    }
+  },
+  "quality_gates": {
+    "QG-ARCH-001": "pending",
+    "QG-DEV-001": "pending",
+    "QG-REV-001": "pending",
+    "QG-REV-002": "pending"
+  },
+  "scores": {
+    "architect": null,
+    "reviewer": 96,
+    "tester": null,
+    "test": 98
+  },
+  "rework_count": {
+    "architect": 0,
+    "developer": 0,
+    "tester": 0,
+    "reviewer": 0
+  },
+  "blocked_count": 0,
+  "hotfix_mode": false,
+  "flow_type": "development",
+  "docs_mode": false,
+  "novel_mode": false,
+  "novel": null,
+  "intent": null,
+  "dispatch_efficiency": {
+    "pm_input_at": "2026-09-20T01:39:27.617Z",
+    "first_artifact_at": "2026-09-20T01:56:36.207Z",
+    "total_dispatch_count": 0,
+    "pm_to_first_artifact_ms": 1028590,
+    "pm_to_archive_ms": null
+  },
+  "adaptive_overrides": {
+    "skipped_phases": [
+      "design-review",
+      "debate"
+    ],
+    "forced_phases": [],
+    "pre_guidance_history": []
+  },
+  "token_summary": {
+    "total_input_tokens": 0,
+    "total_output_tokens": 0,
+    "total_tokens": 0,
+    "by_phase": {},
+    "by_role": {},
+    "by_model": {},
+    "last_calculated_at": "2026-09-20T01:39:53.823Z"
+  },
+  "quality_metrics": {
+    "first_pass_rate": null,
+    "total_rework_loops": 0,
+    "automated_catches": 0,
+    "time_to_first_code_review_ms": null,
+    "total_wall_clock_ms": null,
+    "phases_completed": 7,
+    "phases_total": 7
+  },
+  "context_upgrade_attempts": 0,
+  "mode": "legacy",
+  "team": null,
+  "completed_at": "2026-09-20T02:35:52.058Z"
+}

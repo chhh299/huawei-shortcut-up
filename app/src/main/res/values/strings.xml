@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">双App快捷启动器</string>
+    <string name="title_slot_1">槽位 1（先启动）</string>
+    <string name="title_slot_2">槽位 2（后启动）</string>
+    <string name="desc_slot_1">通常选择辅助工具、悬浮窗或前置应用</string>
+    <string name="desc_slot_2">通常选择主目标应用或深度业务页面</string>
+    <string name="slot_empty_hint">尚未配置，点击选择应用或快捷方式</string>
+    <string name="btn_select">选择应用</string>
+    <string name="btn_shortcut">提取快捷方式</string>
+    <string name="btn_clear">清除</string>
+
+    <string name="title_delay_config">双启动唤起延迟设置</string>
+    <string name="desc_delay_config">第一应用唤起后至第二应用唤起的时间间隔</string>
+    <string name="delay_value_format">%d ms</string>
+
+    <string name="btn_test_launch">即时测试双启</string>
+    <string name="btn_create_shortcut">添加到桌面快捷方式</string>
+
+    <string name="shortcut_default_name">双启动快捷方式</string>
+    <string name="shortcut_created_success">快捷方式已发送至桌面，请返回桌面查看</string>
+    <string name="shortcut_created_failed">桌面快捷方式创建失败，请检查桌面权限</string>
+
+    <string name="dialog_select_type_title">选择槽位目标类型</string>
+    <string name="type_app">已安装应用程序</string>
+    <string name="type_shortcut">第三方快捷方式 (ACTION_CREATE_SHORTCUT)</string>
+
+    <string name="dialog_app_list_title">选择已安装应用</string>
+    <string name="dialog_loading_apps">正在加载已安装应用列表…</string>
+    <string name="search_apps_hint">搜索应用名称或包名…</string>
+
+    <string name="warn_incomplete_slots">请先完成两个槽位的配置，再执行测试或创建快捷方式</string>
+    <string name="toast_target_not_found">无法启动目标应用：%s（可能未安装或组件已变更）</string>
+    <string name="toast_dispatch_success">已完成双应用顺序调度</string>
+
+    <!-- 华为/鸿蒙权限适配相关 -->
+    <string name="huawei_permission_title">华为/鸿蒙桌面快捷方式权限提示</string>
+    <string name="huawei_permission_message">检测到您使用的是华为/荣耀设备。系统默认可能禁止应用自动添加桌面快捷方式，导致添加失败。\n\n建议前往【权限管理】中开启【创建桌面快捷方式】权限后再试。</string>
+    <string name="btn_go_to_permission">前往开启权限</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_continue_anyway">仍要尝试添加</string>
+    <string name="permission_status_label">快捷方式权限状态：</string>
+    <string name="permission_status_granted">已授权</string>
+    <string name="permission_status_denied">未授权（可能被拦截）</string>
+    <string name="permission_status_unknown">普通模式</string>
+</resources>
