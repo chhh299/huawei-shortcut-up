@@ -41,18 +41,20 @@ jobs:
             echo "has_keystore=true" >> $GITHUB_OUTPUT
           else
             echo "No KEYSTORE_BASE64 secret provided. Generating CI temporary signing keystore..."
-            keytool -genkey -v \
+            keytool -genkeypair -v \
               -keystore keystore/release.keystore \
               -alias key0 \
               -keyalg RSA \
               -keysize 2048 \
               -validity 10000 \
+              -storetype PKCS12 \
               -storepass android \
               -keypass android \
               -dname "CN=DualAppCI, OU=CI, O=DualApp, L=Shenzhen, ST=Guangdong, C=CN"
             echo "has_keystore=fallback" >> $GITHUB_OUTPUT
           fi
           cp keystore/release.keystore app/keystore/release.keystore
+          ls -lh keystore/release.keystore
 
       - name: Build Release APK
         env:
@@ -61,6 +63,12 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'key0' }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'android' }}
         run: ./gradlew assembleRelease --stacktrace
+
+      - name: Show Diagnostics on Failure
+        if: failure()
+        run: |
+          echo "=== Build Failed Diagnostic Information ==="
+          find app/build -name "*.log" -o -name "*error*" 2>/dev/null || true
 
       - name: Verify V1 + V2 + V3 Signatures
         run: |

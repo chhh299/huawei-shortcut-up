@@ -1,3 +1,5 @@
+import java.io.File
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -20,27 +22,13 @@ android {
     signingConfigs {
         create("release") {
             val storeFilePath = System.getenv("KEYSTORE_PATH") ?: "keystore/release.keystore"
-            val keystoreFile = File(storeFilePath).takeIf { it.isAbsolute && it.exists() }
-                ?: rootProject.file(storeFilePath).takeIf { it.exists() }
-                ?: file(storeFilePath).takeIf { it.exists() }
-                ?: file("keystore/release.keystore").takeIf { it.exists() }
-                ?: rootProject.file("keystore/release.keystore").takeIf { it.exists() }
+            val candidateFile = File(storeFilePath).takeIf { it.isAbsolute }
+                ?: rootProject.file(storeFilePath)
 
-            if (keystoreFile != null && keystoreFile.exists()) {
-                storeFile = keystoreFile
-                storePassword = System.getenv("STORE_PASSWORD") ?: "android"
-                keyAlias = System.getenv("KEY_ALIAS") ?: "key0"
-                keyPassword = System.getenv("KEY_PASSWORD") ?: "android"
-            } else {
-                // Fallback to debug keystore for seamless local development
-                val debugKeystore = file("${System.getProperty("user.home")}/.android/debug.keystore")
-                if (debugKeystore.exists()) {
-                    storeFile = debugKeystore
-                }
-                storePassword = "android"
-                keyAlias = "androiddebugkey"
-                keyPassword = "android"
-            }
+            storeFile = candidateFile
+            storePassword = System.getenv("STORE_PASSWORD") ?: "android"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "key0"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "android"
             enableV1Signing = true
             enableV2Signing = true
             enableV3Signing = true
