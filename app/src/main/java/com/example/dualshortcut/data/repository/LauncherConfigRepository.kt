@@ -94,7 +94,7 @@ class LauncherConfigRepository(context: Context) {
         val iconBase64 = prefs.getString("${prefix}_icon", null)
         val type = try {
             TargetType.valueOf(typeStr ?: TargetType.APPLICATION.name)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             TargetType.APPLICATION
         }
         return LaunchTarget(

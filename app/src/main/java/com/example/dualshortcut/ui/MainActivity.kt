@@ -221,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val icon = packageManager.getApplicationIcon(packageName)
             imageView.setImageDrawable(icon)
-        } catch (_: PackageManager.NameNotFoundException) {
+        } catch (e: PackageManager.NameNotFoundException) {
             imageView.setImageResource(R.drawable.ic_apps)
         }
     }
@@ -235,7 +235,7 @@ class MainActivity : AppCompatActivity() {
                     imageView.setImageDrawable(BitmapDrawable(resources, bitmap))
                     return
                 }
-            } catch (_: Exception) {}
+            } catch (e: Exception) {}
         }
         loadAppIcon(target.packageName, imageView)
     }

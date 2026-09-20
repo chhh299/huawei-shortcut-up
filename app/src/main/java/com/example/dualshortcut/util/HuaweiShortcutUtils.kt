@@ -49,7 +49,7 @@ object HuaweiShortcutUtils {
         return try {
             val emuiVersion = getSystemProperty("ro.build.version.emui")
             !emuiVersion.isNullOrEmpty()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             false
         }
     }
@@ -192,7 +192,7 @@ object HuaweiShortcutUtils {
         return try {
             val activities = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
             activities.isNotEmpty()
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             false
         }
     }
@@ -202,7 +202,7 @@ object HuaweiShortcutUtils {
             val clazz = Class.forName("android.os.SystemProperties")
             val getMethod = clazz.getMethod("get", String::class.java)
             getMethod.invoke(null, key) as? String
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             null
         }
     }
