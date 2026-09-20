@@ -253,14 +253,17 @@
                             android:textColor="@color/on_surface"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tvDelayValue"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEditDelay"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primary"
+                            android:layout_height="36dp"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="0dp"
+                            android:textSize="13sp"
                             android:textStyle="bold"
-                            tools:text="200 ms" />
+                            android:textColor="@color/primary"
+                            tools:text="20 ms (点击修改)" />
                     </LinearLayout>
 
                     <TextView
@@ -271,15 +274,73 @@
                         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                         android:textColor="@color/secondary" />
 
+                    <!-- 常用毫秒快捷预设标签 -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:scrollbars="none">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipGroupDelayPresets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:singleLine="true">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDelay0"
+                                style="@style/Widget.Material3.Chip.Suggestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 ms (无感并发)" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDelay10"
+                                style="@style/Widget.Material3.Chip.Suggestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10 ms" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDelay20"
+                                style="@style/Widget.Material3.Chip.Suggestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20 ms" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDelay30"
+                                style="@style/Widget.Material3.Chip.Suggestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30 ms" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDelay50"
+                                style="@style/Widget.Material3.Chip.Suggestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="50 ms" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDelay100"
+                                style="@style/Widget.Material3.Chip.Suggestion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100 ms" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
+
+                    <!-- 精细滑动条：步长 1ms，范围 0~1000ms -->
                     <com.google.android.material.slider.Slider
                         android:id="@+id/sliderDelay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:stepSize="50.0"
-                        android:value="200.0"
+                        android:layout_marginTop="4dp"
+                        android:stepSize="1.0"
+                        android:value="20.0"
                         android:valueFrom="0.0"
-                        android:valueTo="2000.0" />
+                        android:valueTo="1000.0" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

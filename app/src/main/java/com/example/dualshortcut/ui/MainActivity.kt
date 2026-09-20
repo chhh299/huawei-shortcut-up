@@ -103,10 +103,22 @@ class MainActivity : AppCompatActivity() {
             renderUI()
         }
 
-        // 延迟滑动条
+        // 延迟配置与直接输入
+        binding.btnEditDelay.setOnClickListener {
+            showCustomDelayDialog()
+        }
+
+        binding.chipDelay0.setOnClickListener { updateDelayValue(0L) }
+        binding.chipDelay10.setOnClickListener { updateDelayValue(10L) }
+        binding.chipDelay20.setOnClickListener { updateDelayValue(20L) }
+        binding.chipDelay30.setOnClickListener { updateDelayValue(30L) }
+        binding.chipDelay50.setOnClickListener { updateDelayValue(50L) }
+        binding.chipDelay100.setOnClickListener { updateDelayValue(100L) }
+
+        // 精细延迟滑动条（1ms步进）
         binding.sliderDelay.addOnChangeListener { _, value, fromUser ->
             val delayMs = value.toLong()
-            binding.tvDelayValue.text = getString(R.string.delay_value_format, delayMs)
+            binding.btnEditDelay.text = "${delayMs} ms (点击修改)"
             if (fromUser) {
                 repository.saveDelay(delayMs)
             }
@@ -178,11 +190,11 @@ class MainActivity : AppCompatActivity() {
         )
 
         // 渲染延迟
-        val safeDelay = profile.safeDelayMs.toFloat()
+        val safeDelay = profile.safeDelayMs.coerceIn(0L, 1000L).toFloat()
         if (binding.sliderDelay.value != safeDelay) {
             binding.sliderDelay.value = safeDelay
         }
-        binding.tvDelayValue.text = getString(R.string.delay_value_format, safeDelay.toInt())
+        binding.btnEditDelay.text = "${safeDelay.toInt()} ms (点击修改)"
     }
 
     private fun renderSlot(
@@ -279,6 +291,38 @@ class MainActivity : AppCompatActivity() {
         } else {
             showSnackbar(getString(R.string.shortcut_created_failed))
         }
+    }
+
+    private fun showCustomDelayDialog() {
+        val current = repository.getProfile().safeDelayMs
+        val input = android.widget.EditText(this).apply {
+            inputType = android.text.InputType.TYPE_CLASS_NUMBER
+            setText(current.toString())
+            setSelection(text.length)
+            hint = "请输入 0~1000 之间的毫秒数值"
+        }
+        val container = android.widget.FrameLayout(this).apply {
+            val padding = (24 * resources.displayMetrics.density).toInt()
+            setPadding(padding, (8 * resources.displayMetrics.density).toInt(), padding, 0)
+            addView(input)
+        }
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("自定义启动延迟 (毫秒)")
+            .setMessage("提示：0 ms 为无感并发调起；推荐设置 10~30 ms 获得极速平滑体验。")
+            .setView(container)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                val entered = input.text.toString().trim().toLongOrNull() ?: current
+                val safe = entered.coerceIn(0L, 1000L)
+                updateDelayValue(safe)
+            }
+            .setNegativeButton(R.string.btn_cancel, null)
+            .show()
+    }
+
+    private fun updateDelayValue(delayMs: Long) {
+        repository.saveDelay(delayMs)
+        renderUI()
     }
 
     private fun showAppPickerDialog() {
