@@ -4,11 +4,15 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- 双启动器火箭与联结图标 -->
+    <!-- 两个联结的双开窗口 (白底与半透明效果) -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M54,24c-12,0 -20,10 -20,22c0,8 4,16 10,21l-2,9l8,-3l4,1c4,0 8,-1 11,-4l7,2l-2,-8c6,-5 10,-13 10,-21c0,-12 -8,-22 -20,-22zM46,42a5,5 0 1,1 0,-10a5,5 0 0,1 0,10zM62,42a5,5 0 1,1 0,-10a5,5 0 0,1 0,10z" />
+        android:fillColor="#80FFFFFF"
+        android:pathData="M28,34h32c3.31,0 6,2.69 6,6v30c0,3.31 -2.69,6 -6,6H28c-3.31,0 -6,-2.69 -6,-6V40c0,-3.31 2.69,-6 6,-6z" />
     <path
-        android:fillColor="#CBE6FF"
-        android:pathData="M38,76l-8,8l4,4l8,-8zM70,76l8,8l-4,4l-8,-8z" />
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M48,28h32c3.31,0 6,2.69 6,6v30c0,3.31 -2.69,6 -6,6H48c-3.31,0 -6,-2.69 -6,-6V34c0,-3.31 2.69,-6 6,-6z" />
+    <!-- 闪电快速启动核心标志 -->
+    <path
+        android:fillColor="#FFD600"
+        android:pathData="M60,34l-9,15h8l-4,17l13,-19h-8z" />
 </vector>

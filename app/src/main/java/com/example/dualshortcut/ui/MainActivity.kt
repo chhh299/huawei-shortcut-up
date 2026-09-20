@@ -21,6 +21,7 @@ import com.example.dualshortcut.data.model.TargetType
 import com.example.dualshortcut.data.repository.LauncherConfigRepository
 import com.example.dualshortcut.databinding.ActivityMainBinding
 import com.example.dualshortcut.databinding.DialogAppPickerBinding
+import com.example.dualshortcut.util.AppShortcutParser
 import com.example.dualshortcut.util.HuaweiShortcutUtils
 import com.example.dualshortcut.util.ShortcutPickerHelper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -283,18 +284,42 @@ class MainActivity : AppCompatActivity() {
     private fun showAppPickerDialog() {
         val dialogBinding = DialogAppPickerBinding.inflate(layoutInflater)
         val adapter = AppPickerAdapter { entry ->
-            val target = ShortcutPickerHelper.createFromApplication(
+            val defaultTarget = ShortcutPickerHelper.createFromApplication(
                 label = entry.label,
                 packageName = entry.packageName,
                 className = entry.className
             )
-            if (targetSelectingSlot == 1) {
-                repository.saveSlot1(target)
-            } else {
-                repository.saveSlot2(target)
+
+            val shortcuts = AppShortcutParser.getShortcutsForPackage(this, entry.packageName, entry.label)
+            val options = mutableListOf<String>()
+            val targets = mutableListOf<LaunchTarget>()
+
+            // 1. 默认主界面
+            options.add("【默认】启动应用主界面")
+            targets.add(defaultTarget)
+
+            // 2. 长按快捷功能（如思源码、扫一扫等）
+            for (sc in shortcuts) {
+                val subLabel = sc.label.substringAfter(" - ")
+                options.add("【快捷功能】$subLabel")
+                targets.add(sc)
             }
-            renderUI()
-            dialog?.dismiss()
+
+            // 3. 高级页面选项
+            options.add("【高级】浏览全部内部页面 (Activity)")
+
+            MaterialAlertDialogBuilder(this)
+                .setTitle("请选择【${entry.label}】启动目标")
+                .setItems(options.toTypedArray()) { _, which ->
+                    if (which < targets.size) {
+                        applySelectedTarget(targets[which])
+                        dialog?.dismiss()
+                    } else {
+                        showActivitiesDialog(entry)
+                    }
+                }
+                .setNegativeButton(R.string.btn_cancel, null)
+                .show()
         }
 
         dialogBinding.rvApps.layoutManager = LinearLayoutManager(this)
@@ -320,6 +345,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialog?.show()
+    }
+
+    private fun showActivitiesDialog(entry: AppEntry) {
+        val activities = AppShortcutParser.getExportedActivitiesForPackage(this, entry.packageName, entry.label)
+        if (activities.isEmpty()) {
+            showSnackbar("该应用未导出可调起的功能页面")
+            return
+        }
+
+        val names = activities.map { it.label.substringAfter(" - ") }.toTypedArray()
+        MaterialAlertDialogBuilder(this)
+            .setTitle("【${entry.label}】内部功能页面")
+            .setItems(names) { _, which ->
+                applySelectedTarget(activities[which])
+                dialog?.dismiss()
+            }
+            .setNegativeButton(R.string.btn_cancel, null)
+            .show()
+    }
+
+    private fun applySelectedTarget(target: LaunchTarget) {
+        if (targetSelectingSlot == 1) {
+            repository.saveSlot1(target)
+        } else {
+            repository.saveSlot2(target)
+        }
+        renderUI()
+        showSnackbar("已成功选择：${target.label}")
     }
 
     private var dialog: androidx.appcompat.app.AlertDialog? = null
