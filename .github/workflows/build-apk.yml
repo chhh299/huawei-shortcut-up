@@ -62,13 +62,15 @@ jobs:
           STORE_PASSWORD: ${{ secrets.STORE_PASSWORD || 'android' }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS || 'key0' }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD || 'android' }}
-        run: ./gradlew assembleRelease --stacktrace --info
-
-      - name: Show Diagnostics on Failure
-        if: failure()
         run: |
-          echo "=== Build Failed Diagnostic Information ==="
-          find app/build -name "*.log" -o -name "*error*" 2>/dev/null || true
+          ./gradlew assembleRelease --stacktrace > build.log 2>&1 || { cat build.log; exit 1; }
+
+      - name: Upload Build Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
 
       - name: Verify V1 + V2 + V3 Signatures
         run: |
